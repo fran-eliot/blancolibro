@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Apartado{% endblock %}
+
+{% block body %}
+    <h1>Create new Apartado</h1>
+
+    {{ include('apartado/_form.html.twig') }}
+
+    <a href="{{ path('app_apartado_index') }}">back to list</a>
+{% endblock %}

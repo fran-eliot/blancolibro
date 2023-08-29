@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subapartado index{% endblock %}
+
+{% block body %}
+    <h1>Subapartado index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TituloSubapartado</th>
+                <th>ContenidoSubapartado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subapartado in subapartados %}
+            <tr>
+                <td>{{ subapartado.id }}</td>
+                <td>{{ subapartado.tituloSubapartado }}</td>
+                <td>{{ subapartado.contenidoSubapartado }}</td>
+                <td>
+                    <a href="{{ path('app_subapartado_show', {'id': subapartado.id}) }}">show</a>
+                    <a href="{{ path('app_subapartado_edit', {'id': subapartado.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_subapartado_new') }}">Create new</a>
+{% endblock %}

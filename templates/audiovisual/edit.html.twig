@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Audiovisual{% endblock %}
+
+{% block body %}
+    <h1>Edit Audiovisual</h1>
+
+    {{ include('audiovisual/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_audiovisual_index') }}">back to list</a>
+
+    {{ include('audiovisual/_delete_form.html.twig') }}
+{% endblock %}

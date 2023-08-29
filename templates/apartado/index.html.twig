@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apartado index{% endblock %}
+
+{% block body %}
+    <h1>Apartado index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TituloApartado</th>
+                <th>ContenidoApartado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apartado in apartados %}
+            <tr>
+                <td>{{ apartado.id }}</td>
+                <td>{{ apartado.tituloApartado }}</td>
+                <td>{{ apartado.contenidoApartado }}</td>
+                <td>
+                    <a href="{{ path('app_apartado_show', {'id': apartado.id}) }}">show</a>
+                    <a href="{{ path('app_apartado_edit', {'id': apartado.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_apartado_new') }}">Create new</a>
+{% endblock %}
