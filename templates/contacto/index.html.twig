@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacto index{% endblock %}
+
+{% block body %}
+    <h1>Contacto index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NombreContacto</th>
+                <th>ConsultaContacto</th>
+                <th>EmailContacto</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contacto in contactos %}
+            <tr>
+                <td>{{ contacto.id }}</td>
+                <td>{{ contacto.nombreContacto }}</td>
+                <td>{{ contacto.consultaContacto }}</td>
+                <td>{{ contacto.emailContacto }}</td>
+                <td>
+                    <a href="{{ path('app_contacto_show', {'id': contacto.id}) }}">show</a>
+                    <a href="{{ path('app_contacto_edit', {'id': contacto.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contacto_new') }}">Create new</a>
+{% endblock %}
