@@ -14,6 +14,7 @@ class AudiovisualType extends AbstractType
         $builder
             ->add('rutaAudiovisual')
             ->add('pieAudiovisual')
+            ->add('tipoPadre')
             ->add('fkSeccion')
             ->add('fkApartado')
             ->add('fkSubapartado')

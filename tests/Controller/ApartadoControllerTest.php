@@ -3,6 +3,7 @@
 namespace App\Test\Controller;
 
 use App\Entity\Apartado;
+use App\Entity\Seccion;
 use App\Repository\ApartadoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -19,6 +20,7 @@ class ApartadoControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Apartado::class);
+        $this->manager = static::getContainer()->get('doctrine')->getManager();
 
         foreach ($this->repository->findAll() as $object) {
             $this->manager->remove($object);
@@ -40,7 +42,7 @@ class ApartadoControllerTest extends WebTestCase
     {
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $this->markTestIncomplete();
+   //     $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -48,7 +50,7 @@ class ApartadoControllerTest extends WebTestCase
         $this->client->submitForm('Save', [
             'apartado[tituloApartado]' => 'Testing',
             'apartado[contenidoApartado]' => 'Testing',
-            'apartado[fkSeccion]' => 'Testing',
+            'apartado[fkSeccion]' => '10',
         ]);
 
         self::assertResponseRedirects('/apartado/');
@@ -58,11 +60,17 @@ class ApartadoControllerTest extends WebTestCase
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
+    //    $this->markTestIncomplete();
+       
+        $seccion = new Seccion();
+        $seccion->setTituloSeccion('Test');
+        $this->manager->persist($seccion);
+        $this->manager->flush();
+        
         $fixture = new Apartado();
         $fixture->setTituloApartado('My Title');
         $fixture->setContenidoApartado('My Title');
-        $fixture->setFkSeccion('My Title');
+        $fixture->setFkSeccion($seccion);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -77,11 +85,16 @@ class ApartadoControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
+  //      $this->markTestIncomplete();
+        $seccion = new Seccion();
+        $seccion->setTituloSeccion('Test');
+        $this->manager->persist($seccion);
+        $this->manager->flush();
+
         $fixture = new Apartado();
         $fixture->setTituloApartado('My Title');
         $fixture->setContenidoApartado('My Title');
-        $fixture->setFkSeccion('My Title');
+        $fixture->setFkSeccion($seccion);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -91,7 +104,7 @@ class ApartadoControllerTest extends WebTestCase
         $this->client->submitForm('Update', [
             'apartado[tituloApartado]' => 'Something New',
             'apartado[contenidoApartado]' => 'Something New',
-            'apartado[fkSeccion]' => 'Something New',
+            'apartado[fkSeccion]' => $seccion->getId(),
         ]);
 
         self::assertResponseRedirects('/apartado/');
@@ -100,19 +113,24 @@ class ApartadoControllerTest extends WebTestCase
 
         self::assertSame('Something New', $fixture[0]->getTituloApartado());
         self::assertSame('Something New', $fixture[0]->getContenidoApartado());
-        self::assertSame('Something New', $fixture[0]->getFkSeccion());
+        self::assertSame($seccion->getId(), $fixture[0]->getFkSeccion()->getId());
     }
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
+   //     $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
+
+        $seccion = new Seccion();
+        $seccion->setTituloSeccion('Test');
+        $this->manager->persist($seccion);
+        $this->manager->flush();
 
         $fixture = new Apartado();
         $fixture->setTituloApartado('My Title');
         $fixture->setContenidoApartado('My Title');
-        $fixture->setFkSeccion('My Title');
+        $fixture->setFkSeccion($seccion);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

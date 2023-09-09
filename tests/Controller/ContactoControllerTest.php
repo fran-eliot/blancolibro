@@ -19,6 +19,7 @@ class ContactoControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Contacto::class);
+        $this->manager = static::getContainer()->get('doctrine')->getManager();
 
         foreach ($this->repository->findAll() as $object) {
             $this->manager->remove($object);
@@ -40,7 +41,7 @@ class ContactoControllerTest extends WebTestCase
     {
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $this->markTestIncomplete();
+  //      $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -58,7 +59,7 @@ class ContactoControllerTest extends WebTestCase
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
+  //      $this->markTestIncomplete();
         $fixture = new Contacto();
         $fixture->setNombreContacto('My Title');
         $fixture->setConsultaContacto('My Title');
@@ -77,7 +78,7 @@ class ContactoControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
+   //     $this->markTestIncomplete();
         $fixture = new Contacto();
         $fixture->setNombreContacto('My Title');
         $fixture->setConsultaContacto('My Title');
@@ -105,7 +106,7 @@ class ContactoControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
+    //    $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 

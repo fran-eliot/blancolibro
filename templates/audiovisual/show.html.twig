@@ -12,6 +12,22 @@
                 <td>{{ audiovisual.id }}</td>
             </tr>
             <tr>
+                <th>TipoPadre</th>
+                <td>{{ audiovisual.tipoPadre }}</td>
+            </tr>
+            <tr>
+                <th>FkSeccion</th>
+                <td>{{ audiovisual.fkSeccion }}</td>
+            </tr>
+            <tr>
+                <th>FkApartado</th>
+                <td>{{ audiovisual.fkApartado }}</td>
+            </tr>
+            <tr>
+                <th>FkSubapartado</th>
+                <td>{{ audiovisual.fkSubapartado }}</td>
+            </tr>
+            <tr>
                 <th>RutaAudiovisual</th>
                 <td>{{ audiovisual.rutaAudiovisual }}</td>
             </tr>
@@ -22,9 +38,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_audiovisual_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_audiovisual_index') }}">back to list</a>
 
-    <a href="{{ path('app_audiovisual_edit', {'id': audiovisual.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_audiovisual_edit', {'id': audiovisual.id}) }}">edit</a>
 
     {{ include('audiovisual/_delete_form.html.twig') }}
 {% endblock %}

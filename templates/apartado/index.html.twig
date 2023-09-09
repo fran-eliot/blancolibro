@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>FkSeccion</th>
                 <th>TituloApartado</th>
                 <th>ContenidoApartado</th>
                 <th>actions</th>
@@ -18,20 +19,21 @@
         {% for apartado in apartados %}
             <tr>
                 <td>{{ apartado.id }}</td>
+                <td>{{ apartado.fkSeccion }}</td>
                 <td>{{ apartado.tituloApartado }}</td>
                 <td>{{ apartado.contenidoApartado }}</td>
                 <td>
-                    <a href="{{ path('app_apartado_show', {'id': apartado.id}) }}">show</a>
-                    <a href="{{ path('app_apartado_edit', {'id': apartado.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_apartado_show', {'id': apartado.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_apartado_edit', {'id': apartado.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_apartado_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_apartado_new') }}">Create new</a>
 {% endblock %}

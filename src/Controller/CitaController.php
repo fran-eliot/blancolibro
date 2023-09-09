@@ -25,35 +25,35 @@ class CitaController extends AbstractController
     #[Route('/new', name: 'app_cita_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $citum = new Cita();
-        $form = $this->createForm(CitaType::class, $citum);
+        $cita = new Cita();
+        $form = $this->createForm(CitaType::class, $cita);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($citum);
+            $entityManager->persist($cita);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_cita_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('cita/new.html.twig', [
-            'citum' => $citum,
+            'cita' => $cita,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_cita_show', methods: ['GET'])]
-    public function show(Cita $citum): Response
+    public function show(Cita $cita): Response
     {
         return $this->render('cita/show.html.twig', [
-            'citum' => $citum,
+            'cita' => $cita,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_cita_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cita $citum, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Cita $cita, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CitaType::class, $citum);
+        $form = $this->createForm(CitaType::class, $cita);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,16 +63,16 @@ class CitaController extends AbstractController
         }
 
         return $this->renderForm('cita/edit.html.twig', [
-            'citum' => $citum,
+            'cita' => $cita,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_cita_delete', methods: ['POST'])]
-    public function delete(Request $request, Cita $citum, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Cita $cita, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$citum->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($citum);
+        if ($this->isCsrfTokenValid('delete'.$cita->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($cita);
             $entityManager->flush();
         }
 

@@ -19,8 +19,8 @@
                 <td>{{ seccion.id }}</td>
                 <td>{{ seccion.tituloSeccion }}</td>
                 <td>
-                    <a href="{{ path('app_seccion_show', {'id': seccion.id}) }}">show</a>
-                    <a href="{{ path('app_seccion_edit', {'id': seccion.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_seccion_show', {'id': seccion.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_seccion_edit', {'id': seccion.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_seccion_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_seccion_new') }}">Create new</a>
 {% endblock %}

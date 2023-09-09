@@ -9,6 +9,10 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>TipoPadre</th>
+                <th>FkSeccion</th>
+                <th>FkApartado</th>
+                <th>FkSubapartado</th> 
                 <th>RutaAudiovisual</th>
                 <th>PieAudiovisual</th>
                 <th>actions</th>
@@ -18,20 +22,24 @@
         {% for audiovisual in audiovisuals %}
             <tr>
                 <td>{{ audiovisual.id }}</td>
+                <td>{{ audiovisual.tipoPadre }}</td>
+                <td>{{ audiovisual.fkSeccion }}</td>
+                <td>{{ audiovisual.fkApartado }}</td>
+                <td>{{ audiovisual.fkSubapartado }}</td>
                 <td>{{ audiovisual.rutaAudiovisual }}</td>
                 <td>{{ audiovisual.pieAudiovisual }}</td>
                 <td>
-                    <a href="{{ path('app_audiovisual_show', {'id': audiovisual.id}) }}">show</a>
-                    <a href="{{ path('app_audiovisual_edit', {'id': audiovisual.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_audiovisual_show', {'id': audiovisual.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_audiovisual_edit', {'id': audiovisual.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_audiovisual_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_audiovisual_new') }}">Create new</a>
 {% endblock %}

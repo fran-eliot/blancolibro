@@ -9,22 +9,34 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ citum.id }}</td>
+                <td>{{ cita.id }}</td>
             </tr>
             <tr>
                 <th>TipoPadre</th>
-                <td>{{ citum.tipoPadre }}</td>
+                <td>{{ cita.tipoPadre }}</td>
+            </tr>
+            <tr>
+                <th>FkSeccion</th>
+                <td>{{ cita.fkSeccion }}</td>
+            </tr>
+            <tr>
+                <th>FkApartado</th>
+                <td>{{ cita.fkApartado }}</td>
+            </tr>
+            <tr>
+                <th>FkSubapartado</th>
+                <td>{{ cita.fkSubapartado }}</td>
             </tr>
             <tr>
                 <th>ContenidoCita</th>
-                <td>{{ citum.contenidoCita }}</td>
+                <td>{{ cita.contenidoCita }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_cita_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_cita_index') }}">back to list</a>
 
-    <a href="{{ path('app_cita_edit', {'id': citum.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_cita_edit', {'id': cita.id}) }}">edit</a>
 
     {{ include('cita/_delete_form.html.twig') }}
 {% endblock %}

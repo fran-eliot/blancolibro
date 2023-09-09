@@ -15,7 +15,7 @@ class Audiovisual
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     private ?string $rutaAudiovisual = null;
 
     #[ORM\Column(length: 500, nullable: true)]

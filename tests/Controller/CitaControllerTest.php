@@ -19,6 +19,7 @@ class CitaControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Cita::class);
+        $this->manager = static::getContainer()->get('doctrine')->getManager();
 
         foreach ($this->repository->findAll() as $object) {
             $this->manager->remove($object);
@@ -30,7 +31,7 @@ class CitaControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $this->path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Citum index');
+        self::assertPageTitleContains('Cita index');
 
         // Use the $crawler to perform additional assertions e.g.
         // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
@@ -40,17 +41,17 @@ class CitaControllerTest extends WebTestCase
     {
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $this->markTestIncomplete();
+       // $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'citum[tipoPadre]' => 'Testing',
-            'citum[contenidoCita]' => 'Testing',
-            'citum[fkSeccion]' => 'Testing',
-            'citum[fkApartado]' => 'Testing',
-            'citum[fkSubapartado]' => 'Testing',
+            'cita[tipoPadre]' => 'SECCION',
+            'cita[contenidoCita]' => 'Testing',
+            'cita[fkSeccion]' => "11",
+            'cita[fkApartado]' => "",
+            'cita[fkSubapartado]' => "",
         ]);
 
         self::assertResponseRedirects('/cita/');
@@ -60,13 +61,13 @@ class CitaControllerTest extends WebTestCase
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
+       // $this->markTestIncomplete();
         $fixture = new Cita();
-        $fixture->setTipoPadre('My Title');
+        $fixture->setTipoPadre('SECCION');
         $fixture->setContenidoCita('My Title');
-        $fixture->setFkSeccion('My Title');
-        $fixture->setFkApartado('My Title');
-        $fixture->setFkSubapartado('My Title');
+        $fixture->setFkSeccion(NULL);
+        $fixture->setFkApartado(NULL);
+        $fixture->setFkSubapartado(NULL);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -74,20 +75,20 @@ class CitaControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Citum');
+        self::assertPageTitleContains('Cita');
 
         // Use assertions to check that the properties are properly displayed.
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
+      //  $this->markTestIncomplete();
         $fixture = new Cita();
-        $fixture->setTipoPadre('My Title');
+        $fixture->setTipoPadre('SECCION');
         $fixture->setContenidoCita('My Title');
-        $fixture->setFkSeccion('My Title');
-        $fixture->setFkApartado('My Title');
-        $fixture->setFkSubapartado('My Title');
+        $fixture->setFkSeccion(NULL);
+        $fixture->setFkApartado(NULL);
+        $fixture->setFkSubapartado(NULL);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -95,36 +96,38 @@ class CitaControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'citum[tipoPadre]' => 'Something New',
-            'citum[contenidoCita]' => 'Something New',
-            'citum[fkSeccion]' => 'Something New',
-            'citum[fkApartado]' => 'Something New',
-            'citum[fkSubapartado]' => 'Something New',
+            'cita[tipoPadre]' => 'APARTADO',
+            'cita[contenidoCita]' => 'Something New',
+            'cita[fkSeccion]' => '',
+            'cita[fkApartado]' => '',
+            'cita[fkSubapartado]' => '',
         ]);
 
         self::assertResponseRedirects('/cita/');
 
         $fixture = $this->repository->findAll();
 
-        self::assertSame('Something New', $fixture[0]->getTipoPadre());
+        self::assertSame('APARTADO', $fixture[0]->getTipoPadre());
         self::assertSame('Something New', $fixture[0]->getContenidoCita());
-        self::assertSame('Something New', $fixture[0]->getFkSeccion());
-        self::assertSame('Something New', $fixture[0]->getFkApartado());
-        self::assertSame('Something New', $fixture[0]->getFkSubapartado());
+        self::assertSame(NULL, $fixture[0]->getFkSeccion());
+        self::assertSame(NULL, $fixture[0]->getFkApartado());
+        self::assertSame(NULL, $fixture[0]->getFkSubapartado());
     }
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
+      //  $this->markTestIncomplete();
+
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
+
         $fixture = new Cita();
-        $fixture->setTipoPadre('My Title');
+        $fixture->setTipoPadre('APARTADO');
         $fixture->setContenidoCita('My Title');
-        $fixture->setFkSeccion('My Title');
-        $fixture->setFkApartado('My Title');
-        $fixture->setFkSubapartado('My Title');
+        $fixture->setFkSeccion(NULL);
+        $fixture->setFkApartado(NULL);
+        $fixture->setFkSubapartado(NULL);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -133,7 +136,7 @@ class CitaControllerTest extends WebTestCase
 
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
-
+       
         self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
         self::assertResponseRedirects('/cita/');
     }

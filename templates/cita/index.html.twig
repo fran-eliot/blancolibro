@@ -10,28 +10,34 @@
             <tr>
                 <th>Id</th>
                 <th>TipoPadre</th>
+                <th>FkSeccion</th>
+                <th>FkApartado</th>
+                <th>FkSubapartado</th> 
                 <th>ContenidoCita</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for citum in citas %}
+        {% for cita in citas %}
             <tr>
-                <td>{{ citum.id }}</td>
-                <td>{{ citum.tipoPadre }}</td>
-                <td>{{ citum.contenidoCita }}</td>
+                <td>{{ cita.id }}</td>
+                <td>{{ cita.tipoPadre }}</td>
+                <td>{{ cita.fkSeccion }}</td>
+                <td>{{ cita.fkApartado }}</td>
+                <td>{{ cita.fkSubapartado }}</td>
+                <td>{{ cita.contenidoCita }}</td>
                 <td>
-                    <a href="{{ path('app_cita_show', {'id': citum.id}) }}">show</a>
-                    <a href="{{ path('app_cita_edit', {'id': citum.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_cita_show', {'id': cita.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_cita_edit', {'id': cita.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_cita_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_cita_new') }}">Create new</a>
 {% endblock %}
