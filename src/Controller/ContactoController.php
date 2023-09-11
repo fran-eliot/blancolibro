@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
 
 #[Route('/contacto')]
 class ContactoController extends AbstractController
@@ -23,7 +24,7 @@ class ContactoController extends AbstractController
     }
 
     #[Route('/new', name: 'app_contacto_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         $contacto = new Contacto();
         $form = $this->createForm(ContactoType::class, $contacto);
@@ -32,6 +33,14 @@ class ContactoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($contacto);
             $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+            ->from(new Address('ramirez.martin.francisco@gmail.com', 'JCMS'))
+            ->to($request->query->get('email_contacto'))
+            ->subject('Tu formulario de contacto')
+            ->htmlTemplate('registration/confirmation_email.html.twig');
+
+        $mailer->send($email);
 
             return $this->redirectToRoute('app_contacto_index', [], Response::HTTP_SEE_OTHER);
         }

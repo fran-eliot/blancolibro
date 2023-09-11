@@ -49,7 +49,7 @@ class CitaControllerTest extends WebTestCase
         $this->client->submitForm('Save', [
             'cita[tipoPadre]' => 'SECCION',
             'cita[contenidoCita]' => 'Testing',
-            'cita[fkSeccion]' => "11",
+            'cita[fkSeccion]' => "",
             'cita[fkApartado]' => "",
             'cita[fkSubapartado]' => "",
         ]);
