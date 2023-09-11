@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
             // );
             // do anything else you need here, like send an email
             $email = (new TemplatedEmail())
-            ->from(new Address('ramirez.martin.francisco@gmail.com', 'JCMS'))
+            ->from(new Address('f5web@juancarlosmacias.es', 'Thinking With You Mail Bot'))
             ->to($user->getEmail())
             ->subject('Tu formulario de contacto')
             ->htmlTemplate('registration/confirmation_email.html.twig');
@@ -102,7 +102,7 @@ class RegistrationController extends AbstractController
         // generate a signed url and email it to the user
         $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
             (new TemplatedEmail())
-                ->from(new Address('ramirez.martin.francisco@gmail.com', 'Thinking With You Mail Bot'))
+                ->from(new Address('f5web@juancarlosmacias.es', 'Thinking With You Mail Bot'))
                 ->to($user->getEmail())
                 ->subject('Please Confirm your Email')
                 ->htmlTemplate('registration/confirmation_email.html.twig')
