@@ -123,7 +123,7 @@ class EscenaController extends AbstractController
                 ];
             }
 
-            $dataEscena[]=$dataSesion;
+            $dataEscena['escena'] = $dataSesion;
         }
 
         return $this->json($dataEscena);
