@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/contacto')]
 class ContactoController extends AbstractController
@@ -35,12 +37,12 @@ class ContactoController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-            ->from(new Address('ramirez.martin.francisco@gmail.com', 'JCMS'))
+            ->from(new Address('f5web@juancarlosmacias.es', 'JCMS'))
             ->to($request->query->get('email_contacto'))
             ->subject('Tu formulario de contacto')
-            ->htmlTemplate('registration/confirmation_email.html.twig');
+            ->htmlTemplate('registration/contacto_email.html.twig');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
             return $this->redirectToRoute('app_contacto_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\UserRepository;
 
 class ChecktokenController extends AbstractController
 {
@@ -58,8 +60,8 @@ class ChecktokenController extends AbstractController
         $response->headers->set('email', $user->getEmail());
         
         // TODO: Revisar cookie
-        $response->headers->setCookie(new Cookie('Authorization', $token));
-        $response->headers->setCookie(new Cookie('BEARER', $token));
+        //$response->headers->setCookie(new Cookie('Authorization', $token));
+        //$response->headers->setCookie(new Cookie('BEARER', $token));
         
         return $response; 
     }

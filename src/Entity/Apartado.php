@@ -36,12 +36,7 @@ class Apartado
     #[ORM\OneToMany(mappedBy: 'fkApartado', targetEntity: Audiovisual::class)]
     private Collection $audiovisuals;
 
-    public function __construct()
-    {
-        $this->subapartados = new ArrayCollection();
-        $this->citas = new ArrayCollection();
-        $this->audiovisuals = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {

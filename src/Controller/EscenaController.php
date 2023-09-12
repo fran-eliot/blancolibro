@@ -14,11 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class EscenaController extends AbstractController
 {
     #[Route('/escena/{id}',name: 'app_escena', methods: ['GET'])]
-    public function index($id): Response
+    public function index($id, SerializerInterface $serializer): Response
     {
         $secciones=[];
         if($id==1){
@@ -36,9 +37,14 @@ class EscenaController extends AbstractController
         }
 
         $dataEscena=[];
+
         $entityManager = $this->getDoctrine()->getManager();
         foreach($secciones as $idSeccion){
+            
             $seccion = $entityManager->getRepository(Seccion::class)->find($idSeccion);
+
+
+
 
             if (!$seccion) {
                 return $this->json(['message' => 'No se encontró la sección'], 404);
@@ -52,7 +58,7 @@ class EscenaController extends AbstractController
                 'citas' => [],
                 'audiovisuales' => [],
             ];
-    
+   
             foreach ($seccion->getApartados() as $apartado) {
                 $dataApartado = [
                     'idApartado' => $apartado->getId(),
@@ -107,7 +113,7 @@ class EscenaController extends AbstractController
     
                 $dataSesion['apartados'][] = $dataApartado;
             }
-    
+ 
             foreach ($seccion->getCitas() as $cita) {
                 $dataSesion['citas'][] = [
                     'idCita' => $cita->getId(),
@@ -122,12 +128,15 @@ class EscenaController extends AbstractController
                     'pieAudiovisual' => $audiovisual->getPieAudiovisual(),
                 ];
             }
-
-            $dataEscena['escena'] = $dataSesion;
+            
+            $escena[] = $seccion ;
+            //$json = $serializer->serialize($seccion, 'json');
+            
+        
         }
-
-        return $this->json($dataEscena);
-
+        $json = $serializer->serialize($escena, 'json');
+        //return $this->json($json);
+        return new Response($json, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
         
 
